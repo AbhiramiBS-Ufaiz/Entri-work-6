@@ -1,0 +1,118 @@
+Import Libraries and Load Data
+
+
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+Load data
+data = pd.read_csv('house_price.csv')
+
+
+Q1. Basic EDA
+
+
+View first few rows
+print(data.head())
+
+Get data info
+print(data.info())
+
+Get summary statistics
+print(data.describe())
+
+
+Q2. Detect Outliers and Remove
+
+
+Method a: Mean and Standard Deviation
+data_mean_std = data[(np.abs(data['price_per_sqft'] - data['price_per_sqft'].mean()) <= (3 * data['price_per_sqft'].std()))]
+
+Method b: Percentile Method
+percentile_5 = np.percentile(data['price_per_sqft'], 5)
+percentile_95 = np.percentile(data['price_per_sqft'], 95)
+data_percentile = data[(data['price_per_sqft'] >= percentile_5) & (data['price_per_sqft'] <= percentile_95)]
+
+Method c: IQR Method
+Q1 = np.percentile(data['price_per_sqft'], 25)
+Q3 = np.percentile(data['price_per_sqft'], 75)
+IQR = Q3 - Q1
+data_iqr = data[(data['price_per_sqft'] >= (Q1 - 1.5 * IQR)) & (data['price_per_sqft'] <= (Q3 + 1.5 * IQR))]
+
+Method d: Z Score Method
+from scipy import stats
+z_scores = stats.zscore(data['price_per_sqft'])
+data_z_score = data[(np.abs(z_scores) < 3)]
+
+
+Q3. Box Plot and Outlier Removal
+
+
+Box plot original data
+sns.boxplot(data['price_per_sqft'])
+plt.title('Original Data')
+plt.show()
+
+Box plots after outlier removal
+sns.boxplot(data_mean_std['price_per_sqft'])
+plt.title('Mean and Std Dev Method')
+plt.show()
+
+sns.boxplot(data_percentile['price_per_sqft'])
+plt.title('Percentile Method')
+plt.show()
+
+sns.boxplot(data_iqr['price_per_sqft'])
+plt.title('IQR Method')
+plt.show()
+
+sns.boxplot(data_z_score['price_per_sqft'])
+plt.title('Z Score Method')
+plt.show()
+
+
+Q4. Normality Check and Transformation
+
+
+Histogram original data
+sns.histplot(data['price_per_sqft'], kde=True)
+plt.title('Original Data')
+plt.show()
+
+Skewness and kurtosis before transformation
+print('Skewness:', data['price_per_sqft'].skew())
+print('Kurtosis:', data['price_per_sqft'].kurt())
+
+Log transformation
+data_transformed = np.log(data['price_per_sqft'])
+
+Histogram transformed data
+sns.histplot(data_transformed, kde=True)
+plt.title('Transformed Data')
+plt.show()
+
+Skewness and kurtosis after transformation
+print('Skewness:', data_transformed.skew())
+print('Kurtosis:', data_transformed.kurt())
+
+
+Q5. Correlation Heatmap
+
+
+Correlation matrix
+corr_matrix = data.corr()
+
+Heatmap
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', square=True)
+plt.title('Correlation Heatmap')
+plt.show()
+
+
+Q6. Scatter Plot
+
+
+Scatter plot between variables
+sns.scatterplot(x=data['area'], y=data['price_per_sqft'])
+plt.title('Scatter Plot: Area vs Price per Sqft')
+plt.show()
