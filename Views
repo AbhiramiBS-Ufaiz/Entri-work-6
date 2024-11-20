@@ -1,0 +1,78 @@
+Create database Product
+CREATE DATABASE Product;
+
+-- Use database Product
+USE Product;
+
+-- Create table Customer
+CREATE TABLE Customer (
+    Customer_Id INT PRIMARY KEY,
+    Make VARCHAR(255),
+    First_name VARCHAR(255),
+    Last_name VARCHAR(255),
+    Email VARCHAR(255) UNIQUE,
+    Phone_no VARCHAR(15),
+    Address VARCHAR(255),
+    City VARCHAR(100),
+    State VARCHAR(100),
+    Zip_code VARCHAR(10),
+    Country VARCHAR(100)
+);
+
+-- Insert data into Customer table
+INSERT INTO Customer (Customer_Id, Make, First_name, Last_name, Email, Phone_no, Address, City, State, Zip_code, Country)
+VALUES 
+(1, 'Apple', 'John', 'Doe', 'john.doe@example.com', '123-456-7890', '123 Main St', 'New York', 'NY', '10001', 'USA'),
+(2, 'Samsung', 'Jane', 'Doe', 'jane.doe@example.com', '987-654-3210', '456 Elm St', 'Los Angeles', 'CA', '90001', 'USA'),
+(3, 'Google', 'Bob', 'Smith', 'bob.smith@example.com', '555-123-4567', '789 Oak St', 'Chicago', 'IL', '60001', 'USA'),
+(4, 'Apple', 'Alice', 'Johnson', 'alice.johnson@example.com', '111-222-3333', '123 Maple St', 'New York', 'NY', '10001', 'USA'),
+(5, 'Samsung', 'Mike', 'Davis', 'mike.davis@example.com', '444-555-6666', '456 Pine St', 'Los Angeles', 'CA', '90001', 'USA'),
+(6, 'Google', 'Emily', 'Chen', 'emily.chen@example.com', '777-888-9999', '789 Cedar St', 'Chicago', 'IL', '60001', 'USA'),
+(7, 'Apple', 'David', 'Lee', 'david.lee@example.com', '333-444-5555', '123 Walnut St', 'New York', 'NY', '10001', 'USA'),
+(8, 'Samsung', 'Sophia', 'Patel', 'sophia.patel@example.com', '666-777-8888', '456 Cypress St', 'Los Angeles', 'CA', '90001', 'USA'),
+(9, 'Google', 'Oliver', 'Brown', 'oliver.brown@example.com', '999-000-1111', '789 Birch St', 'Chicago', 'IL', '60001', 'USA'),
+(10, 'Apple', 'Ava', 'White', 'ava.white@example.com', '222-333-4444', '123 Spruce St', 'New York', 'NY', '10001', 'USA');
+
+-- Create view customer_info
+CREATE VIEW customer_info AS
+SELECT CONCAT(First_name, ' ', Last_name) AS Full_name, Email
+FROM Customer;
+
+-- Perform SELECT operation for customer_info view
+SELECT * FROM customer_info;
+
+-- Create view US_Customers
+CREATE VIEW US_Customers AS
+SELECT *
+FROM Customer
+WHERE Country = 'USA';
+
+-- Create view Customer_details
+CREATE VIEW Customer_details AS
+SELECT 
+    CONCAT(First_name, ' ', Last_name) AS Full_name, 
+    Email, 
+    Phone_no, 
+    State
+FROM Customer;
+
+-- Update phone numbers of customers who live in California for Customer_details view
+UPDATE Customer
+SET Phone_no = '555-555-5555'
+WHERE State = 'CA';
+
+-- Count number of customers in each state and show only states with more than 5 customers
+SELECT State, COUNT(*) AS Number_of_Customers
+FROM Customer
+GROUP BY State
+HAVING Number_of_Customers > 5;
+
+-- Return number of customers in each state
+SELECT State, COUNT(*) AS Number_of_Customers
+FROM Customer_details
+GROUP BY State;
+
+-- Return all columns from Customer_details view, sorted by State
+SELECT *
+FROM Customer_details
+ORDER BY State ASC;
