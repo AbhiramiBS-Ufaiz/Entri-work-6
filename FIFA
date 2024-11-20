@@ -1,0 +1,50 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Load the dataset
+df = pd.read_csv('FIFA Players Dataset.csv')
+
+# 1. Which country has the most number of players?
+most_players_country = df['Nationality'].value_counts().index[0]
+print(f"Country with most players: {most_players_country}")
+
+# 2. Plot a bar chart of 5 top countries with the most number of players.
+top_5_countries = df['Nationality'].value_counts().head(5)
+plt.figure(figsize=(10,6))
+sns.barplot(x=top_5_countries.index, y=top_5_countries.values)
+plt.title('Top 5 Countries by Number of Players')
+plt.xlabel('Country')
+plt.ylabel('Number of Players')
+plt.show()
+
+# 3. Which player has the highest salary?
+highest_salary_player = df.loc[df['Salary'].idxmax()]['Name']
+highest_salary = df['Salary'].max()
+print(f"Player with highest salary: {highest_salary_player} (${highest_salary})")
+
+# 4. Plot a histogram to get the salary range of the players.
+plt.figure(figsize=(10,6))
+sns.histplot(df['Salary'], bins=50)
+plt.title('Salary Distribution of FIFA Players')
+plt.xlabel('Salary ($)')
+plt.ylabel('Frequency')
+plt.show()
+
+# 5. Who is the tallest player in the FIFA?
+tallest_player = df.loc[df['Height'].idxmax()]['Name']
+tallest_height = df['Height'].max()
+print(f"Tallest player: {tallest_player} ({tallest_height} cm)")
+
+# 6. Which club has the most number of players?
+most_players_club = df['Club'].value_counts().index[0]
+print(f"Club with most players: {most_players_club}")
+
+# 7. Which foot is most preferred by the players? Draw a bar chart for preferred foot.
+preferred_foot = df['Preferred Foot'].value_counts()
+plt.figure(figsize=(8,6))
+sns.barplot(x=preferred_foot.index, y=preferred_foot.values)
+plt.title('Preferred Foot of FIFA Players')
+plt.xlabel('Foot')
+plt.ylabel('Count')
+plt.show()
