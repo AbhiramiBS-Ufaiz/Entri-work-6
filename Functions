@@ -1,0 +1,57 @@
+#Exercise 1
+
+# Input list of names
+names = ["John", "Emily", "Michael", "Sarah", "Jane"]
+
+# Filter names with 5 or fewer characters
+filtered_names = list(filter(lambda name: len(name) <= 5, names))
+
+print("Filtered Names:")
+for name in filtered_names:
+    print(name)
+
+
+#Exercise 2
+
+# Input list of integers
+numbers = [5, -2, 9, -1, 7, 0, -3]
+
+# Filter out positive numbers
+negative_and_zero_numbers = list(filter(lambda x: x <= 0, numbers))
+
+print("Negative and Zero Numbers:")
+print(negative_and_zero_numbers)
+
+#Exercise 2
+
+# Input list of strings
+words = ["Apple", "Banana", "Eagle", "Orange", "Pear"]
+
+# Filter out strings starting with a vowel
+non_vowel_words = list(filter(lambda word: word[0].lower() not in 'aeiou', words))
+
+print("Non-Vowel Words:")
+print(non_vowel_words)
+
+#Exercise 4
+
+# Input list of numbers
+numbers = [1, 2, 3, 4, 5]
+
+# Use map to square each number
+squared_numbers = list(map(lambda x: x ** 2, numbers))
+
+print("Squared Numbers:")
+print(squared_numbers)
+
+#Exercise 5
+
+# Input list of strings
+strings = ["hello", "world", "python", "programming"]
+
+# Use map to convert each string to uppercase
+uppercase_strings = list(map(str.upper, strings))
+
+print("Uppercase Strings:")
+print(uppercase_strings)
+
