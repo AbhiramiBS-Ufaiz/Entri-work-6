@@ -1,0 +1,45 @@
+Create table Managers
+CREATE TABLE Managers (
+    Manager_Id INT PRIMARY KEY,
+    First_name VARCHAR(255) NOT NULL,
+    Last_Name VARCHAR(255) NOT NULL,
+    DOB DATE NOT NULL,
+    Age INT CHECK (Age >= 18 AND Age <= 65),
+    Last_update DATE DEFAULT CURRENT_DATE,
+    Gender VARCHAR(10) CHECK (Gender IN ('Male', 'Female', 'Other')),
+    Department VARCHAR(100) NOT NULL,
+    Salary DECIMAL(10, 2) NOT NULL
+);
+
+-- Insert 10 rows
+INSERT INTO Managers (Manager_Id, First_name, Last_Name, DOB, Age, Last_update, Gender, Department, Salary)
+VALUES 
+(1, 'John', 'Doe', '1990-01-01', 32, '2022-01-01', 'Male', 'IT', 30000.00),
+(2, 'Aaliya', 'Khan', '1992-02-02', 30, '2022-02-02', 'Female', 'HR', 25000.00),
+(3, 'Bob', 'Smith', '1985-03-03', 37, '2022-03-03', 'Male', 'Finance', 35000.00),
+(4, 'Emily', 'Chen', '1995-04-04', 27, '2022-04-04', 'Female', 'Marketing', 28000.00),
+(5, 'David', 'Lee', '1980-05-05', 42, '2022-05-05', 'Male', 'IT', 32000.00),
+(6, 'Sophia', 'Patel', '1991-06-06', 31, '2022-06-06', 'Female', 'Sales', 29000.00),
+(7, 'Oliver', 'Brown', '1982-07-07', 40, '2022-07-07', 'Male', 'IT', 31000.00),
+(8, 'Ava', 'White', '1993-08-08', 29, '2022-08-08', 'Female', 'HR', 26000.00),
+(9, 'Michael', 'Davis', '1988-09-09', 34, '2022-09-09', 'Male', 'Finance', 33000.00),
+(10, 'Isabella', 'Martin', '1994-10-10', 28, '2022-10-10', 'Female', 'Marketing', 27000.00);
+
+Retrieve name and DOB of manager with Manager_Id 1
+SELECT First_name, Last_Name, DOB 
+FROM Managers 
+WHERE Manager_Id = 1;
+
+Display annual income of all managers
+SELECT First_name, Last_Name, Salary * 12 AS Annual_Income 
+FROM Managers;
+
+Display records of all managers except 'Aaliya'
+SELECT * 
+FROM Managers 
+WHERE First_name != 'Aaliya';
+
+Display details of managers in IT department earning more than 25000
+SELECT * 
+FROM Managers 
+WHERE Department = 'IT' AND Salary > 25000;
