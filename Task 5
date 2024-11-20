@@ -1,0 +1,64 @@
+#1. Add a new column called DOB in Persons table
+
+
+ALTER TABLE Persons
+ADD DOB DATE;
+
+
+#2. Update DOB column with values
+
+
+UPDATE Persons
+SET DOB = '1990-01-01' WHERE Id = 1,
+    DOB = '1992-02-02' WHERE Id = 2,
+    DOB = '1985-03-03' WHERE Id = 3,
+    DOB = '1995-04-04' WHERE Id = 4,
+    DOB = '1980-05-05' WHERE Id = 5,
+    DOB = '1991-06-06' WHERE Id = 6,
+    DOB = '1982-07-07' WHERE Id = 7,
+    DOB = '1993-08-08' WHERE Id = 8,
+    DOB = '1988-09-09' WHERE Id = 9,
+    DOB = '1994-10-10' WHERE Id = 10;
+
+
+#3. Create user-defined function to calculate age using DOB
+
+
+DELIMITER //
+CREATE FUNCTION CalculateAge(DOB DATE)
+RETURNS INT
+BEGIN
+    DECLARE Age INT;
+    SET Age = YEAR(CURRENT_DATE) - YEAR(DOB);
+    RETURN Age;
+END//
+DELIMITER ;
+
+
+#4. Fetch Age of all persons using the function
+
+
+SELECT Id, Fname, Lname, DOB, CalculateAge(DOB) AS Age
+FROM Persons;
+
+
+#5. Perform inner join, Left join, and Right join on the tables
+
+# Inner Join
+SELECT (link unavailable), P.Fname, P.Lname, C.Country_name
+FROM Persons P
+INNER JOIN Country C
+ON P.Country_Id = (link unavailable);
+
+# Left Join
+SELECT (link unavailable), P.Fname, P.Lname, C.Country_name
+FROM Persons P
+LEFT JOIN Country C
+ON P.Country_Id = (link unavailable);
+
+# Right Join
+SELECT (link unavailable), P.Fname, P.Lname, C.Country_name
+FROM Persons P
+RIGHT JOIN Country C
+ON P.Country_Id = (link unavailable);
+
