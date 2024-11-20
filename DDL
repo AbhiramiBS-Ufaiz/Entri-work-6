@@ -1,0 +1,47 @@
+# -- Create database School
+# CREATE DATABASE School;
+#
+# -- Use database School
+# USE School;
+#
+# -- Create table STUDENT
+CREATE TABLE STUDENT (Roll_No INT PRIMARY KEY,Fname VARCHAR(255) NOT NULL,Marks DECIMAL(5,2) CHECK (Marks >= 0 AND Marks <= 100),
+    Grade VARCHAR(2) CHECK (Grade IN ('A', 'B', 'C', 'D', 'F'))
+);
+
+#- Insert 10 rows into the table
+INSERT INTO STUDENT (Roll_No, Name, Marks, Grade)
+VALUES
+(1, 'John Doe', 85.50, 'A'),
+(2, 'Jane Doe', 90.00, 'A'),
+(3, 'Alice Smith', 78.20, 'B'),
+(4, 'Bob Johnson', 92.00, 'A'),
+(5, 'Eve Williams', 88.50, 'A'),
+(6, 'Mike Davis', 76.80, 'B'),
+(7, 'Emma Taylor', 95.00, 'A'),
+(8, 'David Lee', 82.00, 'B'),
+(9, 'Sophia Patel', 89.20, 'A'),
+(10, 'Oliver Brown', 80.50, 'B');
+
+#Display the table
+SELECT * FROM STUDENT;
+
+#Add a column named Contact to the STUDENT table
+ALTER TABLE STUDENT
+ADD Contact VARCHAR(15);
+
+# Remove the Grade column from the Student table
+ALTER TABLE STUDENT
+DROP COLUMN Grade;
+
+# Rename the table to CLASSTEN
+RENAME TABLE STUDENT TO CLASSTEN;
+
+# Delete all rows from the table
+TRUNCATE TABLE CLASSTEN;
+
+#Remove the table from the database
+DROP TABLE CLASSTEN;
+
+# Remove the database School
+DROP DATABASE School;
