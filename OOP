@@ -1,0 +1,52 @@
+#Exercise
+
+
+class BankAccount:
+    def __init__(self, account_number, account_holder, initial_balance):
+        """
+        Initializes the BankAccount object.
+
+        Args:
+            account_number (str): The account number.
+            account_holder (str): The account holder's name.
+            initial_balance (float): The initial balance.
+        """
+        self.account_number = account_number
+        self.account_holder = account_holder
+        self.balance = initial_balance
+
+    def deposit(self, amount):
+        """
+        Deposits the specified amount into the account.
+
+        Args:
+            amount (float): The amount to deposit.
+        """
+        self.balance += amount
+        print(f"Deposited ${amount:.2f}. New balance: ${self.balance:.2f}")
+
+    def withdraw(self, amount):
+        """
+        Withdraws the specified amount from the account if sufficient funds exist.
+
+        Args:
+            amount (float): The amount to withdraw.
+        """
+        if amount > self.balance:
+            print("Insufficient funds.")
+        else:
+            self.balance -= amount
+            print(f"Withdrew ${amount:.2f}. New balance: ${self.balance:.2f}")
+
+# Create an instance of BankAccount
+account = BankAccount("123456789", "John Doe", 1000.0)
+
+# Perform deposits and withdrawals
+account.deposit(500.0)
+account.withdraw(200.0)
+account.withdraw(1500.0)  # Insufficient funds
+
+# Display the resulting balance
+print(f"Account Number: {account.account_number}")
+print(f"Account Holder: {account.account_holder}")
+print(f"Final Balance: ${account.balance:.2f}")
