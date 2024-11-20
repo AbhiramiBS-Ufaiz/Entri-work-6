@@ -1,0 +1,115 @@
+#Exercise 1
+
+numbers = [5, 2, 9, 1, 7, 3]
+numbers.sort()
+print(numbers)
+
+#Exercise 2
+
+#Method 1: Built-in reverse() method*
+
+
+numbers = [5, 2, 9, 1, 7, 3]
+numbers.reverse()
+print(numbers)
+
+#Method 2: Slicing technique
+
+
+numbers = [5, 2, 9, 1, 7, 3]
+reversed_numbers = numbers[::-1]
+print(reversed_numbers)
+
+#Exercise 3
+
+
+class PhoneBook:
+    def __init__(self):
+        self.contacts = {}
+
+    def add_contact(self, name, phone_number):
+        self.contacts[name] = phone_number
+        print(f"Contact '{name}' added successfully.")
+
+    def remove_contact(self, name):
+        if name in self.contacts:
+            del self.contacts[name]
+            print(f"Contact '{name}' removed successfully.")
+        else:
+            print(f"Contact '{name}' not found.")
+
+    def lookup_contact(self, name):
+        if name in self.contacts:
+            print(f"Phone number of {name}: {self.contacts[name]}")
+        else:
+            print(f"Contact '{name}' not found.")
+
+    def display_contacts(self):
+        if self.contacts:
+            print("Phone Book Contacts:")
+            for name, phone_number in self.contacts.items():
+                print(f"{name}: {phone_number}")
+        else:
+            print("Phone book is empty.")
+
+def main():
+    phone_book = PhoneBook()
+
+    while True:
+        print("\nPhone Book Options:")
+        print("1. Add Contact")
+        print("2. Remove Contact")
+        print("3. Lookup Contact")
+        print("4. Display Contacts")
+        print("5. Exit")
+
+        choice = input("Enter your choice: ")
+
+        if choice == "1":
+            name = input("Enter contact name: ")
+            phone_number = input("Enter phone number: ")
+            phone_book.add_contact(name, phone_number)
+        elif choice == "2":
+            name = input("Enter contact name to remove: ")
+            phone_book.remove_contact(name)
+        elif choice == "3":
+            name = input("Enter contact name to lookup: ")
+            phone_book.lookup_contact(name)
+        elif choice == "4":
+            phone_book.display_contacts()
+        elif choice == "5":
+            break
+        else:
+            print("Invalid choice. Please try again.")
+
+if __name__ == "__main__":
+    main()
+
+#Exercise 4
+
+# Find common players using set intersection
+
+game1 = {'John', 'Sarah', 'Michael', 'Emily'}
+game2 = {'Michael', 'Emily', 'Daniel'}
+game3 = {'Sarah', 'Emily', 'Daniel'}
+
+common_players = game1 & game2 & game3
+
+print("Common players:", common_players)
+
+#Exercise 5
+
+def is_palindrome(s):
+    s = s.upper()  # Convert to uppercase
+    return s == s[::-1]  # Compare string with its reverse
+
+# Test the function
+strings = ["MALAYALAM", "MADAM", "HELLO"]
+
+for s in strings:
+    if is_palindrome(s):
+        print(f"'{s}' is a palindrome.")
+    else:
+        print(f"'{s}' is not a palindrome.")
+
+
