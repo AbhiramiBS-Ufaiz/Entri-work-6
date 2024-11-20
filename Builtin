@@ -1,0 +1,117 @@
+#Table Creation and Insertion
+
+
+CREATE TABLE Country (
+    Id INT PRIMARY KEY,
+    Country_name VARCHAR(255),
+    Population INT,
+    Area DECIMAL(10, 2)
+);
+
+CREATE TABLE Persons (
+    Id INT PRIMARY KEY,
+    Fname VARCHAR(255),
+    Lname VARCHAR(255),
+    Population INT,
+    Rating DECIMAL(5, 2),
+    Country_Id INT,
+    Country_name VARCHAR(255)
+);
+
+INSERT INTO Country (Id, Country_name, Population, Area)
+VALUES 
+(1, 'USA', 331000000, 9833520.00),
+(2, 'Canada', 37790000, 9984670.00),
+(3, 'Mexico', 127500000, 1964375.00),
+(4, 'UK', 67000000, 243610.00),
+(5, 'Germany', 83140000, 357021.00),
+(6, 'France', 67200000, 551695.00),
+(7, 'Australia', 25900000, 7692024.00),
+(8, 'China', 1443000000, 9596961.00),
+(9, 'India', 1380000000, 3287590.00),
+(10, 'Japan', 128000000, 377944.00);
+
+INSERT INTO Persons (Id, Fname, Lname, Population, Rating, Country_Id, Country_name)
+VALUES 
+(1, 'John', 'Doe', 331000000, 8.5, 1, 'USA'),
+(2, 'Aaliya', 'Khan', 37790000, 9.0, 2, 'Canada'),
+(3, 'Bob', 'Smith', 127500000, 8.0, 3, 'Mexico'),
+(4, 'Emily', 'Chen', 67000000, 8.5, 4, 'UK'),
+(5, 'David', 'Lee', 83140000, 9.0, 5, 'Germany'),
+(6, 'Sophia', 'Patel', 67200000, 8.0, 6, 'France'),
+(7, 'Oliver', 'Brown', 25900000, 8.5, 7, 'Australia'),
+(8, 'Ava', 'White', 1443000000, 9.0, 8, 'China'),
+(9, 'Michael', 'Davis', 1380000000, 8.0, 9, 'India'),
+(10, 'Isabella', 'Martin', 128000000, 8.5, 10, 'Japan');
+
+
+#SQL Queries
+
+#1. Print first three characters of Country_name:
+
+
+SELECT LEFT(Country_name, 3) 
+FROM Country;
+
+
+#1. Concatenate first name and last name:
+
+
+SELECT CONCAT(Fname, ' ', Lname) AS Full_Name 
+FROM Persons;
+
+
+#1. Count unique country names:
+
+
+SELECT COUNT(DISTINCT Country_name) 
+FROM Persons;
+
+
+#1. Print maximum population:
+
+
+SELECT MAX(Population) 
+FROM Country;
+
+
+##1. Insert rows with Lname NULL and count Lname:
+
+
+INSERT INTO Persons (Id, Fname, Lname, Population, Rating, Country_Id, Country_name)
+VALUES 
+(11, 'Sam', NULL, 100000, 8.0, 1, 'USA'),
+(12, 'Alex', NULL, 200000, 9.0, 2, 'Canada');
+
+SELECT COUNT(Lname) 
+FROM Persons;
+
+
+#. Count rows in Persons table:
+
+
+SELECT COUNT(*) 
+FROM Persons;
+
+
+#. Return current date and time:
+
+
+#SELECT CURRENT_TIMESTAMP;
+
+
+#. Show population for first 3 rows:
+
+
+SELECT Population 
+FROM Country 
+LIMIT 3;
+
+
+#. Print 3 random rows:
+
+
+SELECT * 
+FROM Country 
+ORDER BY RAND() 
+LIMIT 3;
