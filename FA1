@@ -1,0 +1,32 @@
+Insert records into inventory table
+INSERT INTO inventory (name, price, category, quantity)
+VALUES 
+('Apple Watch', 299.99, 'Electronics', 50),
+('Samsung TV', 1299.99, 'Electronics', 20),
+('Nike Shoes', 99.99, 'Footwear', 100),
+('Adidas T-Shirt', 29.99, 'Apparel', 50),
+('Sony Headphones', 99.99, 'Electronics', 30),
+('LG Laptop', 999.99, 'Electronics', 15),
+('Reebok Jacket', 49.99, 'Apparel', 40),
+('Canon Camera', 499.99, 'Electronics', 25),
+('Puma Socks', 9.99, 'Apparel', 200),
+('HP Printer', 149.99, 'Electronics', 35);
+
+-- Insert records into orders table
+INSERT INTO orders (product_id, quantity_ordered, order_date)
+VALUES 
+(1, 2, '2022-01-01'),
+(2, 1, '2022-01-15'),
+(3, 3, '2022-02-01'),
+(5, 2, '2022-03-01'),
+(9, 1, '2022-04-01');
+
+
+Display the tables:
+
+
+-- Display inventory table
+SELECT * FROM inventory;
+
+-- Display orders table
+SELECT * FROM orders;
