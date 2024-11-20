@@ -1,0 +1,82 @@
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler, MinMaxScaler
+from sklearn.preprocessing import OneHotEncoder, LabelEncoder
+
+Load dataset
+data = pd.read_csv('(link unavailable)')
+
+Data Exploration
+print("Unique values in each feature:")
+for column in data.columns:
+    print(f"{column}: {data[column].nunique()}")
+
+print("\nStatistical Analysis:")
+print(data.describe())
+
+Rename columns
+data = data.rename(columns={'Place of residence': 'Residence', 'Type of employment': 'Employment'})
+
+Data Cleaning
+print("\nMissing values:")
+print(data.isnull().sum())
+
+Replace 0 in age with NaN
+data['Age'] = data['Age'].replace(0, np.nan)
+
+Remove duplicate rows
+data = data.drop_duplicates()
+
+Treat null values
+data['Age'] = data['Age'].fillna(data['Age'].mean())
+data['Salary'] = data['Salary'].fillna(data['Salary'].median())
+
+Outlier detection
+Q1 = data['Salary'].quantile(0.25)
+Q3 = data['Salary'].quantile(0.75)
+IQR = Q3 - Q1
+data = data[~((data['Salary'] < (Q1 - 1.5 * IQR)) | (data['Salary'] > (Q3 + 1.5 * IQR)))]
+
+Data Analysis
+filtered_data = data[(data['Age'] > 40) & (data['Salary'] < 5000)]
+
+Plot age vs salary
+plt.scatter(filtered_data['Age'], filtered_data['Salary'])
+plt.xlabel('Age')
+plt.ylabel('Salary')
+plt.show()
+
+Count people from each place
+place_counts = filtered_data['Residence'].value_counts()
+plt.bar(place_counts.index, place_counts.values)
+plt.xlabel('Residence')
+plt.ylabel('Count')
+plt.show()
+
+Data Encoding
+le = LabelEncoder()
+data['Employment'] = le.fit_transform(data['Employment'])
+
+ohe = OneHotEncoder()
+residence_ohe = ohe.fit_transform(data[['Residence']])
+data = pd.concat([data, pd.DataFrame(residence_ohe.toarray())], axis=1)
+data = data.drop('Residence', axis=1)
+
+Feature Scaling
+scaler = StandardScaler()
+data[['Age', 'Salary']] = scaler.fit_transform(data[['Age', 'Salary']])
+
+minmax_scaler = MinMaxScaler()
+data[['Age', 'Salary']] = minmax_scaler.fit_transform(data[['Age', 'Salary']])
+
+
+This implementation addresses the key components of the project:
+
+1. Data Exploration: Examines unique values, statistical analysis, and column renaming.
+2. Data Cleaning: Handles missing values, duplicates, and outliers.
+3. Data Analysis: Filters data, plots age vs salary, and counts people from each place.
+4. Data Encoding: Converts categorical variables to numerical representations using label encoding and one-hot encoding.
+5. Feature Scaling: Scales features using standard scaler and min-max scaler.
+
+This implementation provides a robust data preprocessing system, enhancing the quality and reliability of the data for machine learning
