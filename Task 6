@@ -1,0 +1,53 @@
+1. Find the number of persons in each country
+
+
+SELECT C.Country_name, COUNT((link unavailable)) AS Number_of_Persons
+FROM Persons P
+JOIN Country C ON P.Country_Id = (link unavailable)
+GROUP BY C.Country_name;
+
+
+2. Find the number of persons in each country sorted from high to low
+
+
+SELECT C.Country_name, COUNT((link unavailable)) AS Number_of_Persons
+FROM Persons P
+JOIN Country C ON P.Country_Id = (link unavailable)
+GROUP BY C.Country_name
+ORDER BY Number_of_Persons DESC;
+
+
+3. Find out an average rating for Persons in respective countries if the average is greater than 3.0
+
+
+SELECT C.Country_name, AVG(P.Rating) AS Average_Rating
+FROM Persons P
+JOIN Country C ON P.Country_Id = (link unavailable)
+GROUP BY C.Country_name
+HAVING Average_Rating > 3.0;
+
+
+4. Find the countries with the same rating as the USA (Using Subqueries)
+
+
+SELECT C.Country_name, AVG(P.Rating) AS Average_Rating
+FROM Persons P
+JOIN Country C ON P.Country_Id = (link unavailable)
+GROUP BY C.Country_name
+HAVING AVG(P.Rating) = (
+  SELECT AVG(P.Rating)
+  FROM Persons P
+  JOIN Country C ON P.Country_Id = (link unavailable)
+  WHERE C.Country_name = 'USA'
+);
+
+
+5. Select all countries whose population is greater than the average population of all nations
+
+
+SELECT *
+FROM Country
+WHERE Population > (
+  SELECT AVG(Population)
+  FROM Country
+);
