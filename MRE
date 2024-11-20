@@ -1,0 +1,94 @@
+#Exercise 1
+
+import math
+
+# Input number
+num = float(input("Enter a number: "))
+
+# Check if number is non-negative
+if num < 0:
+    print("Error: Square root of negative numbers is not a real number.")
+else:
+    # Calculate square root using math.sqrt()
+    sqrt = math.sqrt(num)
+
+    print(f"The square root of {num} is {sqrt:.2f}")
+
+#Exercise 2
+
+import math
+
+num = 4.3
+
+# Calculate floor using math.floor()
+floor_value = math.floor(num)
+
+# Calculate ceiling using math.ceil()
+ceiling_value = math.ceil(num)
+
+print(f"Number: {num}")
+print(f"Floor: {floor_value}")
+print(f"Ceiling: {ceiling_value}")
+
+#Exercise 3
+
+import math
+
+# Method 1: Using ** operator
+base = 2
+exponent = 3
+result = base ** exponent
+print(f"{base} raised to the power of {exponent} is {result}")
+
+# Method 2: Using math.pow()
+base = 2
+exponent = 3
+result = math.pow(base, exponent)
+print(f"{base} raised to the power of {exponent} is {result}")
+
+# Method 3: Using ** operator with floating-point exponent
+base = 2
+exponent = 0.5
+result = base ** exponent
+print(f"{base} raised to the power of {exponent} is {result}")
+
+#Exercise 4
+
+import re
+
+
+def validate_email(email):
+    # Regular expression pattern for validating email addresses
+    pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
+
+    # Check if the email matches the pattern
+    if re.match(pattern, email):
+        return True
+    else:
+        return False
+
+
+# Test the function
+email = input("Enter an email address: ")
+if validate_email(email):
+    print(f"'{email}' is a valid email address.")
+else:
+    print(f"'{email}' is not a valid email address.")
+
+
+#Exercise 5
+
+def factorial(n):
+    # Base case: factorial of 0 or 1 is 1
+    if n == 0 or n == 1:
+        return 1
+    # Recursive case: n! = n * (n-1)!
+    else:
+        return n * factorial(n-1)
+
+num = int(input("Enter a number: "))
+if num < 0:
+    print("Factorial is not defined for negative numbers.")
+else:
+    result = factorial(num)
+    print(f"Factorial of {num} is {result}.")
