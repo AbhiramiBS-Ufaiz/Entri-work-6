@@ -1,0 +1,133 @@
+Assumptions:
+
+1. Dataset contains columns: Order_ID, Order_Date, Ship_Mode, Ship_City, Ship_State, Ship_Region, Ship_Country, Market, Sales.
+
+Basic Data Cleaning:
+
+Remove duplicates
+SELECT DISTINCT *
+FROM dataset;
+
+Handle missing values
+SELECT 
+  Order_ID,
+  Order_Date,
+  COALESCE(Ship_Mode, 'Unknown') AS Ship_Mode,
+  COALESCE(Ship_City, 'Unknown') AS Ship_City,
+  COALESCE(Ship_State, 'Unknown') AS Ship_State,
+  COALESCE(Ship_Region, 'Unknown') AS Ship_Region,
+  COALESCE(Ship_Country, 'Unknown') AS Ship_Country,
+  COALESCE(Market, 'Unknown') AS Market,
+  Sales
+FROM dataset;
+
+
+Segmentation by Country, Region, Market:
+
+
+Country-wise sales
+SELECT 
+  Ship_Country,
+  SUM(Sales) AS Total_Sales
+FROM dataset
+GROUP BY Ship_Country;
+
+Region-wise sales
+SELECT 
+  Ship_Region,
+  SUM(Sales) AS Total_Sales
+FROM dataset
+GROUP BY Ship_Region;
+
+Market-wise sales
+SELECT 
+  Market,
+  SUM(Sales) AS Total_Sales
+FROM dataset
+GROUP BY Market;
+
+
+Visualization: Percentage of Shipping based on Ship Mode
+
+
+Ship mode percentage
+SELECT 
+  Ship_Mode,
+  COUNT(*) AS Total_Orders,
+  ROUND(COUNT(*) / (SELECT COUNT(*) FROM dataset) * 100, 2) AS Percentage
+FROM dataset
+GROUP BY Ship_Mode;
+
+
+Sales over City, States, Region, and Market:
+
+
+City-wise sales
+SELECT 
+  Ship_City,
+  SUM(Sales) AS Total_Sales
+FROM dataset
+GROUP BY Ship_City;
+
+State-wise sales
+SELECT 
+  Ship_State,
+  SUM(Sales) AS Total_Sales
+FROM dataset
+GROUP BY Ship_State;
+
+Region-wise sales (already calculated above)
+
+ Market-wise sales (already calculated above)
+
+
+Tables for Visualizations:
+
+
+Country-wise sales table
+CREATE TABLE Country_Sales (
+  Country VARCHAR(50),
+  Total_Sales DECIMAL(10, 2)
+);
+
+Region-wise sales table
+CREATE TABLE Region_Sales (
+  Region VARCHAR(50),
+  Total_Sales DECIMAL(10, 2)
+);
+
+Market-wise sales table
+CREATE TABLE Market_Sales (
+  Market VARCHAR(50),
+  Total_Sales DECIMAL(10, 2)
+);
+
+Ship mode percentage table
+CREATE TABLE Ship_Mode_Percentage (
+  Ship_Mode VARCHAR(50),
+  Total_Orders INT,
+  Percentage DECIMAL(5, 2)
+);
+
+City-wise sales table
+CREATE TABLE City_Sales (
+  City VARCHAR(50),
+  Total_Sales DECIMAL(10, 2)
+);
+
+-- State-wise sales table
+CREATE TABLE State_Sales (
+  State VARCHAR(50),
+  Total_Sales DECIMAL(10, 2)
+);
+
+
+Data Visualization Tools:
+
+Use tools like Tableau, Power BI, or D3.js to create interactive visualizations.
+
+Report:
+
+Combine the results from the above queries and tables to create a comprehensive report.
+
+Please provide the dataset or clarify any assumptions to ensure accurate guidance
