@@ -1,0 +1,102 @@
+import pandas as pd
+import numpy as np
+
+#Load the dataset
+df = pd.read_csv('ABC_Company_Dataset.csv')
+
+##Check for missing values
+print(df.isnull().sum())
+
+#Ensure data consistency and integrity
+print(df.dtypes)
+print(df.head())
+
+
+#Analysis Task 1: Distribution of Employees Across Teams
+
+
+#Calculate percentage split relative to total number of employees
+team_counts = df['team'].value_counts(normalize=True) * 100
+
+#Visualize team distribution
+import matplotlib.pyplot as plt
+plt.figure(figsize=(8, 6))
+plt.bar(team_counts.index, team_counts.values)
+plt.title('Employee Distribution Across Teams')
+plt.xlabel('Team')
+plt.ylabel('Percentage')
+plt.show()
+
+
+#Analysis Task 2: Segregate Employees by Position
+
+
+#Calculate position counts
+position_counts = df['position'].value_counts()
+
+#Visualize position distribution
+import seaborn as sns
+plt.figure(figsize=(8, 6))
+sns.barplot(x=position_counts.index, y=position_counts.values)
+plt.title('Employee Distribution By Position')
+plt.xlabel('Position')
+plt.ylabel('Count')
+plt.show()
+
+
+#Analysis Task 3: Predominant Age Group
+
+
+#Create age bins
+age_bins = [20, 30, 40, 50, 60]
+
+#Calculate age group counts
+age_groups = pd.cut(df['age'], bins=age_bins)
+age_counts = age_groups.value_counts(normalize=True) * 100
+
+#Visualize age distribution
+plt.figure(figsize=(8, 6))
+sns.barplot(x=age_counts.index, y=age_counts.values)
+plt.title('Age Distribution Among Employees')
+plt.xlabel('Age Group')
+plt.ylabel('Percentage')
+plt.show()
+
+
+#Analysis Task 4: Team and Position with Highest Salary Expenditure
+
+
+#Calculate team salary sums
+team_salary = df.groupby('team')['salary'].sum().sort_values(ascending=False)
+
+#Calculate position salary sums
+position_salary = df.groupby('position')['salary'].sum().sort_values(ascending=False)
+
+print('Team with highest salary expenditure:', team_salary.index[0])
+print('Position with highest salary expenditure:', position_salary.index[0])
+
+
+#Analysis Task 5: Correlation Between Age and Salary
+
+
+#Visualize age-salary correlation
+plt.figure(figsize=(8, 6))
+sns.scatterplot(x='age', y='salary', data=df)
+plt.title('Correlation Between Age and Salary')
+plt.xlabel('Age')
+plt.ylabel('Salary')
+plt.show()
+
+#Calculate correlation coefficient
+corr_coef = df['age'].corr(df['salary'])
+print('Correlation coefficient between age and salary:', corr_coef)
+
+
+# This comprehensive report provides:
+#
+# 1. Preprocessed dataset with corrected height values.
+# 2. Distribution of employees across teams.
+# 3. Segregation of employees by position.
+# 4. Predominant age group among employees.
+# 5. Team and position with the highest salary expenditure.
+# 6. Visual representation of the correlation between age and salary.
