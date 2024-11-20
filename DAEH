@@ -1,0 +1,30 @@
+#Exercise 1
+
+def greet(func):
+    def wrapper(*args, **kwargs):
+        print("Hello, welcome to the function!")
+        return func(*args, **kwargs)
+    return wrapper
+
+@greet
+def say_hello(name):
+    print(f"Hello, {name}!")
+
+say_hello("Alice")
+
+#Exercise 2
+
+
+def get_file_name():
+    file_name = input("Enter the file name: ")
+    try:
+        with open(file_name, 'r') as file:
+            print(f"File '{file_name}' found.")
+            print(file.read())
+    except FileNotFoundError:
+        print(f"Error: File '{file_name}' not found.")
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+get_file_name()
+ 
