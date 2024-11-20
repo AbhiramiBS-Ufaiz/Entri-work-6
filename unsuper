@@ -1,0 +1,50 @@
+Import necessary libraries
+from sklearn.datasets import load_iris
+from sklearn.preprocessing import StandardScaler
+from sklearn.cluster import KMeans
+from sklearn.cluster import AgglomerativeClustering
+import matplotlib.pyplot as plt
+from sklearn.decomposition import PCA
+
+Load Iris dataset
+iris = load_iris()
+
+Drop species column
+X = iris.data
+
+Preprocess data: feature scaling
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+
+KMeans Clustering
+kmeans = KMeans(n_clusters=3, random_state=42)
+kmeans.fit(X_scaled)
+
+Visualize KMeans clusters
+pca = PCA(n_components=2)
+X_reduced = pca.fit_transform(X_scaled)
+plt.scatter(X_reduced[:, 0], X_reduced[:, 1], c=kmeans.labels_)
+plt.title("KMeans Clustering")
+plt.show()
+
+Hierarchical Clustering
+hclust = AgglomerativeClustering(n_clusters=3)
+hclust.fit(X_scaled)
+
+Visualize Hierarchical clusters
+plt.scatter(X_reduced[:, 0], X_reduced[:, 1], c=hclust.labels_)
+plt.title("Hierarchical Clustering")
+plt.show()
+
+
+KMeans Clustering:
+
+1. Description: KMeans is an unsupervised learning algorithm that groups similar data points into K clusters based on their features.
+2. Suitability: KMeans is suitable for the Iris dataset because it has distinct clusters and KMeans can handle continuous features.
+3. Visualization: The clusters are visualized using PCA-reduced data.
+
+Hierarchical Clustering:
+
+1. Description: Hierarchical clustering builds a hierarchy of clusters by merging or splitting existing clusters.
+2. Suitability: Hierarchical clustering is suitable for the Iris dataset because it can capture the nested structure of the data.
+3. Visualization: The clusters are visualized using PCA-reduced data.
